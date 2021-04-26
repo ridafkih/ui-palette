@@ -4,7 +4,6 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import {
   Scene,
   PerspectiveCamera,
-  WebGLRenderer,
   AmbientLight,
   Color,
   PMREMGenerator,
@@ -14,19 +13,16 @@ import {
   MeshStandardMaterial,
   ImageBitmapLoader,
   PointLight,
-  sRGBEncoding,
 } from "three";
+import ThreeJSRenderer from "./services/renderer.service";
+
 
 // ** SCENE CONFIGURATION
 
 const scene: Scene = new Scene();
-scene.background = new Color(0xdddddd);
+scene.background = new Color(0x0E0E0E);
 
-const renderer: WebGLRenderer = new WebGLRenderer({ antialias: true });
-renderer.outputEncoding = sRGBEncoding;
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x000000, 1);
-
+const renderer: ThreeJSRenderer = new ThreeJSRenderer({ antialias: true });
 document.body.appendChild(renderer.domElement);
 
 // ** CAMERA CONFIGURATION
