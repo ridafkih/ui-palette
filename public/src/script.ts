@@ -13,9 +13,11 @@ import {
   MeshStandardMaterial,
   ImageBitmapLoader,
   PointLight,
+  Object3D,
 } from "three";
 import ThreeJSRenderer from "./services/renderer.service";
 import { loadObject } from "./services/object.service";
+import { loadTexture } from "./services/texture.service";
 
 // ** SCENE CONFIGURATION
 
@@ -86,25 +88,11 @@ document.addEventListener("mousemove", ({ clientX, clientY }) => {
 const textureLoader = new TextureLoader();
 const bitmapLoader = new ImageBitmapLoader();
 
-loadObject('./models/iphone_12_pro/model.glb').then(model => {
-  console.log(model);
-  scene.add(model);
+(async() => {
+  const model: Object3D = await loadObject(scene, './models/iphone_12_pro/model.glb');
+  const screen: Mesh = await getChildByName(model, "Screen_Wallpaper_0");
 
-  model.traverse((object) => {
-    if (object instanceof Mesh && object.name == "Screen_Wallpaper_0") {
-      const newScreenMaterial = new MeshStandardMaterial({
-        ...object.material,
-        emissiveIntensity: 0.5,
-        metalness: 0,
-      });
-      
-      object.material = newScreenMaterial;
-
-      textureLoader.load("./texture/home.png", (texture) => {
-        object.material.map = texture;
-      });
-    }
-  });
+  applyTextureToChild(screen, "Screen_Wallpaper_0", "./texture/home.png");
 
   // ** POINT LIGHT
 
@@ -126,4 +114,27 @@ loadObject('./models/iphone_12_pro/model.glb').then(model => {
   }
 
   animate();
-})
+})();
+
+async function getChildByName(object: Object3D, childName: string): Promise<Mesh> {
+  return new Promise((resolve, reject) => {
+    object.traverse(object => {
+      if (object.name == childName && object instanceof Mesh)
+        resolve(object);
+    })
+    reject("Could not find object.");
+  })
+}
+
+function applyTextureToChild(
+  object: Object3D,
+  childName: string,
+  texturePath: string
+) {
+  object.traverse(object => {
+    if (object.name == childName && object instanceof Mesh)
+    loadTexture(texturePath).then(texture => {
+      object.material.map = texture;
+    })
+  })
+}
