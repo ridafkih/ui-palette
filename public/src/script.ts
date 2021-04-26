@@ -15,9 +15,11 @@ import {
   PointLight,
   Object3D,
 } from "three";
+
 import ThreeJSRenderer from "./services/renderer.service";
+
 import { loadObject } from "./services/object.service";
-import { loadTexture } from "./services/texture.service";
+import { applyTextureToChild } from "./services/texture.service";
 
 // ** SCENE CONFIGURATION
 
@@ -62,6 +64,12 @@ new RGBELoader()
 const ambientLight = new AmbientLight(0xffffff, 0.8);
 scene.add(ambientLight);
 
+// ** POINT LIGHT
+
+const pointLight = new PointLight(0xffffff, 0.1);
+pointLight.position.set(64, 64, 0);
+scene.add(pointLight);
+
 // ** OBJECT CONFIGURATION
 
 const state = {
@@ -85,20 +93,10 @@ document.addEventListener("mousemove", ({ clientX, clientY }) => {
   state.rotation.x = yMidRef * 0.5;
 });
 
-const textureLoader = new TextureLoader();
-const bitmapLoader = new ImageBitmapLoader();
-
 (async() => {
   const model: Object3D = await loadObject(scene, './models/iphone_12_pro/model.glb');
-  const screen: Mesh = await getChildByName(model, "Screen_Wallpaper_0");
 
-  applyTextureToChild(screen, "Screen_Wallpaper_0", "./texture/home.png");
-
-  // ** POINT LIGHT
-
-  const pointLight = new PointLight(0xffffff, 0.1);
-  pointLight.position.set(64, 64, 0);
-  scene.add(pointLight);
+  applyTextureToChild(model, "Screen_Wallpaper_0", "./texture/home.png");
 
   // ** ANIMATION
 
@@ -115,26 +113,3 @@ const bitmapLoader = new ImageBitmapLoader();
 
   animate();
 })();
-
-async function getChildByName(object: Object3D, childName: string): Promise<Mesh> {
-  return new Promise((resolve, reject) => {
-    object.traverse(object => {
-      if (object.name == childName && object instanceof Mesh)
-        resolve(object);
-    })
-    reject("Could not find object.");
-  })
-}
-
-function applyTextureToChild(
-  object: Object3D,
-  childName: string,
-  texturePath: string
-) {
-  object.traverse(object => {
-    if (object.name == childName && object instanceof Mesh)
-    loadTexture(texturePath).then(texture => {
-      object.material.map = texture;
-    })
-  })
-}
