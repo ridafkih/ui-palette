@@ -1,10 +1,16 @@
-import { PerspectiveCamera, Scene, sRGBEncoding, WebGLRenderer } from "three";
+import { 
+  PerspectiveCamera,
+  Scene,
+  sRGBEncoding,
+  WebGLRenderer
+} from "three";
 
 export default class ThreeJSRenderer extends WebGLRenderer {
+  scene!: Scene;
   camera: PerspectiveCamera = new PerspectiveCamera(
     60,
     window.innerWidth / window.innerHeight,
-    .1,
+    0.1,
     1000
   );
 
@@ -14,16 +20,20 @@ export default class ThreeJSRenderer extends WebGLRenderer {
     ...props
   }) {
     super({ ...props });
+    
+    this.scene = scene;
 
     this.outputEncoding = sRGBEncoding;
     this.setClearColor(0x000000, 0);
 
     this.setSize(width, height);
 
-    window.addEventListener('resize', () => handleResize(scene), false);
+    window.addEventListener("resize", () => handleResize(this), false);
   }
 }
 
-function handleResize(scene: Scene) {
-  scene
+function handleResize(renderer: ThreeJSRenderer) {
+  renderer.camera.aspect = window.innerWidth / window.innerHeight;
+  renderer.camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }

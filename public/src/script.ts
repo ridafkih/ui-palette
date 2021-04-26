@@ -1,26 +1,16 @@
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
-
 import {
   Scene,
   PerspectiveCamera,
   AmbientLight,
-  Color,
-  PMREMGenerator,
-  UnsignedByteType,
-  Mesh,
-  TextureLoader,
-  MeshStandardMaterial,
-  ImageBitmapLoader,
   PointLight,
-  Object3D,
-  Renderer,
+  Object3D
 } from "three";
 
 import ThreeJSRenderer from "./services/renderer.service";
 
 import { loadObject } from "./services/object.service";
 import { applyTextureToChild } from "./services/texture.service";
+import { setEnvironmentMap } from "./services/env.service";
 
 // ** SCENE CONFIGURATION
 
@@ -40,20 +30,9 @@ const camera: PerspectiveCamera = renderer.camera;
 camera.position.set(0, 0, 0);
 camera.lookAt(scene.position);
 
-// ** CAMERA CONTROLS CONFIGURATION
-
 // ** ENVIRONMENT CONFIGURATION
 
-const generator = new PMREMGenerator(renderer);
-generator.compileEquirectangularShader();
-
-new RGBELoader()
-  .setDataType(UnsignedByteType)
-  .load("./environments/env.pic", (texture) => {
-    const envMap = generator.fromEquirectangular(texture).texture;
-    generator.dispose();
-    scene.environment = envMap;
-  });
+setEnvironmentMap(renderer, "./environments/env.pic");
 
 // ** AMBIENT LIGHT CONFIGURATION
 
