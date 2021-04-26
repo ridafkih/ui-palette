@@ -1,4 +1,4 @@
-import { PMREMGenerator, UnsignedByteType, WebGLRenderer } from "three";
+import { PMREMGenerator, UnsignedByteType } from "three";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import ThreeJSRenderer from "./renderer.service";
 

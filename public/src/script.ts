@@ -8,9 +8,13 @@ import {
 
 import ThreeJSRenderer from "./services/renderer.service";
 
-import { loadObject } from "./services/object.service";
+import { loadObject, ObjectStateHandler } from "./services/object.service";
 import { applyTextureToChild } from "./services/texture.service";
 import { setEnvironmentMap } from "./services/env.service";
+
+// ** OBJECT STATE HANDLER
+
+const objectStateHandler = new ObjectStateHandler();
 
 // ** SCENE CONFIGURATION
 
