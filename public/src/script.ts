@@ -15,6 +15,7 @@ import {
   PointLight,
 } from "three";
 import ThreeJSRenderer from "./services/renderer.service";
+import { loadObject } from "./services/object.service";
 
 // ** SCENE CONFIGURATION
 
@@ -85,50 +86,44 @@ document.addEventListener("mousemove", ({ clientX, clientY }) => {
 const textureLoader = new TextureLoader();
 const bitmapLoader = new ImageBitmapLoader();
 
-const gltfLoader: GLTFLoader = new GLTFLoader();
-gltfLoader.load(
-  "./models/iphone_12_pro/model.glb",
-  (gltf) => {
-    const model = gltf.scene;
-    scene.add(model);
+loadObject('./models/iphone_12_pro/model.glb').then(model => {
+  console.log(model);
+  scene.add(model);
 
-    model.traverse((object) => {
-      if (object instanceof Mesh && object.name == "Screen_Wallpaper_0") {
-        const newScreenMaterial = new MeshStandardMaterial({
-          ...object.material,
-          emissiveIntensity: 0.5,
-          metalness: 0,
-        });
-        console.log(newScreenMaterial);
-        object.material = newScreenMaterial;
+  model.traverse((object) => {
+    if (object instanceof Mesh && object.name == "Screen_Wallpaper_0") {
+      const newScreenMaterial = new MeshStandardMaterial({
+        ...object.material,
+        emissiveIntensity: 0.5,
+        metalness: 0,
+      });
+      
+      object.material = newScreenMaterial;
 
-        textureLoader.load("./texture/home.png", (texture) => {
-          object.material.map = texture;
-        });
-      }
-    });
-
-    // ** POINT LIGHT
-
-    const pointLight = new PointLight(0xffffff, 0.1);
-    pointLight.position.set(64, 64, 0);
-    scene.add(pointLight);
-
-    // ** ANIMATION
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      const { position, rotation } = state;
-
-      model.position.set(position.x, position.y, position.z);
-      model.rotation.set(rotation.x, rotation.y, rotation.z);
-
-      renderer.render(scene, camera);
+      textureLoader.load("./texture/home.png", (texture) => {
+        object.material.map = texture;
+      });
     }
+  });
 
-    animate();
-  },
-  undefined,
-  console.error
-);
+  // ** POINT LIGHT
+
+  const pointLight = new PointLight(0xffffff, 0.1);
+  pointLight.position.set(64, 64, 0);
+  scene.add(pointLight);
+
+  // ** ANIMATION
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    const { position, rotation } = state;
+
+    model.position.set(position.x, position.y, position.z);
+    model.rotation.set(rotation.x, rotation.y, rotation.z);
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+})
