@@ -14,6 +14,7 @@ import {
   ImageBitmapLoader,
   PointLight,
   Object3D,
+  Renderer,
 } from "three";
 
 import ThreeJSRenderer from "./services/renderer.service";
@@ -26,21 +27,16 @@ import { applyTextureToChild } from "./services/texture.service";
 const scene: Scene = new Scene();
 scene.background = null;
 
-const renderer: ThreeJSRenderer = new ThreeJSRenderer({
+const renderer: ThreeJSRenderer = new ThreeJSRenderer(scene, {
   antialias: true,
-  alpha: true
+  alpha: true,
 });
 
 document.body.appendChild(renderer.domElement);
 
 // ** CAMERA CONFIGURATION
 
-const camera: PerspectiveCamera = new PerspectiveCamera(
-  60,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
+const camera: PerspectiveCamera = renderer.camera;
 camera.position.set(0, 0, 0);
 camera.lookAt(scene.position);
 
@@ -93,8 +89,11 @@ document.addEventListener("mousemove", ({ clientX, clientY }) => {
   state.rotation.x = yMidRef * 0.5;
 });
 
-(async() => {
-  const model: Object3D = await loadObject(scene, './models/iphone_12_pro/model.glb');
+(async () => {
+  const model: Object3D = await loadObject(
+    scene,
+    "./models/iphone_12_pro/model.glb"
+  );
 
   applyTextureToChild(model, "Screen_Wallpaper_0", "./texture/home.png");
 
