@@ -1,23 +1,50 @@
 {
-  "name": "3d",
+  "name": "pallette-ui",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec \"webpack --config webpack.config.js\" -e ts",
-    "build": "tsc"
+    "watch": "nodemon --exec \"webpack --config webpack.config.js\" -e ts",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "three": "^0.128.0"
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "styled-components": "^5.2.3",
+    "three": "^0.128.0",
+    "web-vitals": "^1.1.1"
   },
   "devDependencies": {
     "@types/three": "^0.127.1",
     "nodemon": "^2.0.7",
     "ts-loader": "^9.1.1",
-    "typescript": "^4.2.4",
-    "webpack": "^5.35.1",
-    "webpack-cli": "^4.6.0"
+    "typescript": "^4.2.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
