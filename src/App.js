@@ -1,7 +1,8 @@
+import Viewport from "./components/Viewport";
+
 function App() {
   return (
-    <>
-    </>
+    <Viewport></Viewport>
   );
 }
 

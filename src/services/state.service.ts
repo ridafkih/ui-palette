@@ -23,7 +23,7 @@ export class ObjectStateObserverHandler {
   }
 
   getObjectsByName(query: string) {
-    return this.observers.filter(x => x.name == query);
+    return this.observers.filter(x => x.name === query);
   }
 }
 
