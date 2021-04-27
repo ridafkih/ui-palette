@@ -14,11 +14,16 @@ html,
 }
 
 #root {
-  background: #1A1A1A;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  background:
+    linear-gradient(90deg, #1A1A1A calc(44px - 2px), transparent 1%) center,
+    linear-gradient(#1A1A1A calc(44px - 2px), transparent 1%) center,
+    #3F3F3F;
+  background-size: 44px 44px;
+
 }
 
 canvas {
