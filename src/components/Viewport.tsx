@@ -65,6 +65,16 @@ function animate() {
   requestAnimationFrame(animate);
   objectStateHandler.updateObjects();
   renderer.render(scene, camera);
+
+  // ** CUSTOM STATE OBSERVERS
+  const [reference] = objectStateHandler.getObjectsByName("iPhone");
+  if (!reference) return;
+  const cursorOut = reference.getCustomState("cursorOut");
+  if (cursorOut) {
+    reference.state.rotation.x *= 0.85;
+    reference.state.rotation.y *= 0.85;
+    reference.state.rotation.z *= 0.85;
+  }
 }
 
 function Viewport() {
