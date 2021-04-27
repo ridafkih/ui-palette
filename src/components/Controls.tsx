@@ -3,19 +3,47 @@ import styled from 'styled-components';
 
 import Selector from '../molecules/Selector';
 
-const ControlContainer = styled.div`
+const ControlTitle = styled.div`
+  margin-left: 4px;
+`
+
+const ControlsContainer = styled.div`
   width: 100%;
-  height: 88px;
+  box-sizing: border-box;
+  
+  padding: 32px;
+
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+`
+
+const ControlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `
 
 function Controls() {
   return (
-    <ControlContainer>
-      <Selector></Selector>
-    </ControlContainer>
+    <ControlsContainer>
+      <ControlContainer>
+        <ControlTitle>Selector</ControlTitle>
+        <Selector options={[
+          {
+            default: true,
+            content: "Social App"
+          },
+          {
+            default: false,
+            content: "Image App"
+          },
+          {
+            default: false,
+            content: "Blog App"
+          }
+        ]}></Selector>
+      </ControlContainer>
+    </ControlsContainer>
   )
 }
 

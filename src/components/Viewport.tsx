@@ -68,7 +68,7 @@ function Viewport() {
     renderer.updateViewport();
   }, []);
 
-  return <div id="viewport" style={{ height: "100%" }} ref={viewport}></div>;
+  return <div id="viewport" style={{ height: "80vh" }} ref={viewport}></div>;
 }
 
 export default Viewport;
