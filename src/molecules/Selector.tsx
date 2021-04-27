@@ -70,25 +70,25 @@ function Selector({ options }: { options: Option[] }) {
   const defaultRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
-
+  
   let selected: HTMLElement;
-
+  
   function placeIndicator({ target: option }: any) {
     const container = containerRef.current;
     const indicator = indicatorRef.current;
     if (!container || !indicator) return;
-
+    
     selected = option;
-
+    
     const containerBounds = container.getBoundingClientRect();
     const buttonBounds = option.getBoundingClientRect();
-
+    
     const diff = buttonBounds.x - containerBounds.x;
-
+    
     indicator.style.transform = `translateX(${diff}px)`;
     indicator.style.width = `${option.clientWidth}px`;
   }
-
+  
   useEffect(() => {
     placeIndicator({ target: defaultRef.current });
     window.addEventListener("resize", () => {

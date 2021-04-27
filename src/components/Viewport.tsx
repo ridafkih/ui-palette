@@ -40,14 +40,14 @@ scene.add(pointLight);
   );
 
   const reference = objectStateHandler.add(model, "iPhone");
-  reference.state.position.z = -150;
+  reference.state.position.z = -120;
 
   document.addEventListener("mousemove", ({ clientX, clientY }) => {
     const xMidRef = (clientX - window.innerWidth / 2) / window.innerWidth;
     const yMidRef = (clientY - window.innerHeight / 2) / window.innerHeight;
 
-    reference.state.rotation.y = xMidRef * 0.5;
-    reference.state.rotation.x = yMidRef * 0.5;
+    reference.state.rotation.y = xMidRef * 0.25;
+    reference.state.rotation.x = yMidRef * 0.25;
   });
 
   applyTextureToChild(model, "Screen_Wallpaper_0", "./texture/home.png");
