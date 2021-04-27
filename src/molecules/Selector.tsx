@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useWindowSize } from "../services/window.service";
 
 const OptionsContainer = styled.div`
   border-radius: 64px;
@@ -67,6 +68,8 @@ interface Option {
 }
 
 function Selector({ options }: { options: Option[] }) {
+  const windowSize = useWindowSize();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
 
@@ -94,7 +97,7 @@ function Selector({ options }: { options: Option[] }) {
 
     indicator.style.transform = `translateX(${diff}px)`;
     indicator.style.width = `${selectedElement.clientWidth}px`;
-  }, [selectedValue]);
+  }, [selectedValue, windowSize]);
 
   return (
     <OptionsContainer ref={containerRef}>
