@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import ColourPicker from "../molecules/ColourPicker";
 
 import Selector from "../molecules/Selector";
 
-const ControlTitle = styled.div`
+const ControlTitle = styled.div<{ margin?: number }>`
   color: #999999;
-  margin-left: 6px;
+  margin-left: ${props => props.margin || 0}px;
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 16px;
@@ -32,6 +33,10 @@ const ControlContainer = styled.div`
 function Controls() {
   return (
     <ControlsContainer>
+      <ControlContainer>
+        <ControlTitle>Colour Selection</ControlTitle>
+        <ColourPicker></ColourPicker>
+      </ControlContainer>
       <ControlContainer>
         <ControlTitle>App Type</ControlTitle>
         <Selector
