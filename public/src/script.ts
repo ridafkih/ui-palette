@@ -8,13 +8,14 @@ import {
 
 import ThreeJSRenderer from "./services/renderer.service";
 
-import { loadObject, ObjectStateHandler } from "./services/object.service";
+import { loadObject } from "./services/object.service";
+import { ObjectStateObserverHandler } from "./services/state.service";
 import { applyTextureToChild } from "./services/texture.service";
 import { setEnvironmentMap } from "./services/env.service";
 
 // ** OBJECT STATE HANDLER
 
-const objectStateHandler = new ObjectStateHandler();
+const objectStateHandler = new ObjectStateObserverHandler();
 
 // ** SCENE CONFIGURATION
 
@@ -69,14 +70,12 @@ scene.add(pointLight);
   });
 
   applyTextureToChild(model, "Screen_Wallpaper_0", "./texture/home.png");
-
-  // ** ANIMATION
-
-  function animate() {
-    requestAnimationFrame(animate);
-    objectStateHandler.updateObjects();
-    renderer.render(scene, camera);
-  }
-
-  animate();
 })();
+
+function animate() {
+  requestAnimationFrame(animate);
+  objectStateHandler.updateObjects();
+  renderer.render(scene, camera);
+}
+
+animate();
