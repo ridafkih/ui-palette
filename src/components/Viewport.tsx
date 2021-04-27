@@ -46,11 +46,11 @@ scene.add(pointLight);
   document.addEventListener("mousemove", ({ clientX, clientY }) => {
     reference.setCustomState("cursorOut", false);
 
-    const xMidRef = (clientX - window.innerWidth / 2) / window.innerWidth;
-    const yMidRef = (clientY - window.innerHeight / 2) / window.innerHeight;
+    const targetX = (clientX - window.innerWidth / 2) / window.innerWidth * .25;
+    const targetY = (clientY - window.innerHeight / 2) / window.innerHeight * .25;
 
-    reference.state.rotation.y = xMidRef * 0.25;
-    reference.state.rotation.x = yMidRef * 0.25;
+    reference.state.rotation.y = targetX;
+    reference.state.rotation.x = targetY;
   });
 
   document.addEventListener("mouseleave", () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const OptionsContainer = styled.div`
@@ -62,39 +62,39 @@ const Indicator = styled.div`
 `;
 
 interface Option {
-  default: boolean;
-  content: string;
+  label: string;
+  value: string;
 }
 
 function Selector({ options }: { options: Option[] }) {
-  const defaultRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
-  
-  let selected: HTMLElement;
-  
-  function placeIndicator({ target: option }: any) {
+
+  const [selectedValue, setSelectedValue] = useState<string | null>(options[0].value);
+
+  function handleOptionClick({
+    currentTarget: option,
+  }: React.MouseEvent<HTMLDivElement>) {
+    const { optionValue } = option.dataset;
+    setSelectedValue(optionValue ?? null);
+  }
+
+  useEffect(() => {
     const container = containerRef.current;
     const indicator = indicatorRef.current;
     if (!container || !indicator) return;
-    
-    selected = option;
+
+    const selectedElement = document.querySelector(`[data-option-value='${selectedValue}']`) as HTMLElement;
+    if (!selectedElement) return;
     
     const containerBounds = container.getBoundingClientRect();
-    const buttonBounds = option.getBoundingClientRect();
-    
+    const buttonBounds = selectedElement.getBoundingClientRect();
+
     const diff = buttonBounds.x - containerBounds.x;
-    
+
     indicator.style.transform = `translateX(${diff}px)`;
-    indicator.style.width = `${option.clientWidth}px`;
-  }
-  
-  useEffect(() => {
-    placeIndicator({ target: defaultRef.current });
-    window.addEventListener("resize", () => {
-      placeIndicator({ target: selected });
-    });
-  }, []);
+    indicator.style.width = `${selectedElement.clientWidth}px`;
+  }, [selectedValue]);
 
   return (
     <OptionsContainer ref={containerRef}>
@@ -103,10 +103,10 @@ function Selector({ options }: { options: Option[] }) {
         return (
           <OptionElement
             key={index}
-            onClick={placeIndicator}
-            ref={option.default ? defaultRef : undefined}
+            data-option-value={option.value}
+            onClick={handleOptionClick}
           >
-            {option.content}
+            {option.label}
           </OptionElement>
         );
       })}

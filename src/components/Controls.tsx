@@ -37,16 +37,16 @@ function Controls() {
         <Selector
           options={[
             {
-              default: true,
-              content: "Social App",
+              label: "Social App",
+              value: "social-app"
             },
             {
-              default: false,
-              content: "Image App",
+              label: "Image App",
+              value: "image-app"
             },
             {
-              default: false,
-              content: "Blog App",
+              label: "Blog App",
+              value: "blog-app"
             },
           ]}
         ></Selector>
@@ -56,12 +56,12 @@ function Controls() {
         <Selector
           options={[
             {
-              default: true,
-              content: "3D View",
+              label: "3D View",
+              value: "3d-view"
             },
             {
-              default: false,
-              content: "2D View",
+              label: "2D View",
+              value: "2d-view"
             }
           ]}
         ></Selector>
