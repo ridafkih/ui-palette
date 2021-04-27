@@ -15,13 +15,13 @@ const PickerContainer = styled.div`
   padding: 7px;
 `;
 
-const Picker = styled.div`
+const Picker = styled.div<{ defaultColour?: string }>`
   width: 16px;
   height: 16px;
 
   border-radius: 50%;
 
-  color: white;
+  color: ${props => props.defaultColour|| "#FFFFFF"};
 
   background: currentColor;
   box-shadow: 0 0 0 3px #1a1a1a, 0 0 0 6px currentColor;
@@ -44,7 +44,7 @@ const ColourCover = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-`
+`;
 
 interface SwatchPosition {
   top: number;
@@ -63,11 +63,21 @@ function ColourPicker() {
   );
 
   const handleChange = (color: { hex: string }) => {
+    if (!selectedSwatch) return;
+    const selectedElement: HTMLElement | null = document.querySelector(
+      `[data-colour-name="${selectedSwatch}"]`
+    );
+
+    if (!selectedElement) return;
+
+    selectedElement.dataset.colourValue = color.hex;
+    selectedElement.style.color = color.hex;
     setColour(color.hex);
   };
 
   const handleClick = ({ currentTarget }: React.MouseEvent<HTMLElement>) => {
-    const { colourName } = currentTarget.dataset;
+    const { colourName, colourValue }: any = currentTarget.dataset;
+    setColour(colourValue);
     setSelectedSwatch(colourName!);
   };
 
@@ -82,7 +92,9 @@ function ColourPicker() {
 
   useEffect(() => {
     if (!selectedSwatch) return;
-    const selectedElement = document.querySelector(`[data-colour-name="${selectedSwatch}"]`);
+    const selectedElement = document.querySelector(
+      `[data-colour-name="${selectedSwatch}"]`
+    );
     const { x, y } = selectedElement!.getBoundingClientRect();
     repositionSwatch({ x, y });
   }, [windowSize, selectedSwatch]);
@@ -106,27 +118,30 @@ function ColourPicker() {
             color={colour}
             onChange={handleChange}
             ref={colourPicker}
-            
           />
         </>
       ) : null}
       <Picker
         data-colour-name="main"
+        defaultColour={"#FFFFFF"}
         data-colour-value={"#FFFFFF"}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="secondary"
+        defaultColour={"#AFAFAF"}
         data-colour-value={"#AFAFAF"}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="accent"
+        defaultColour={"#888888"}
         data-colour-value={"#888888"}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="background"
+        defaultColour={"#000000"}
         data-colour-value={"#000000"}
         onClick={handleClick}
       ></Picker>
