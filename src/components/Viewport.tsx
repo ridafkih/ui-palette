@@ -20,15 +20,8 @@ const objectStateHandler = new ObjectStateObserverHandler();
 const scene: Scene = new Scene();
 scene.background = null;
 
-const renderer: ThreeJSRenderer = new ThreeJSRenderer(scene, {
-  antialias: true,
-  alpha: true,
-});
-
+const renderer: ThreeJSRenderer = new ThreeJSRenderer(scene, { antialias: true, alpha: true });
 const camera: PerspectiveCamera = renderer.camera;
-camera.position.set(0, 0, 0);
-camera.lookAt(scene.position);
-
 setEnvironmentMap(renderer, "./environments/env.pic");
 
 const ambientLight = new AmbientLight(0xffffff, 0.8);

@@ -20,9 +20,10 @@ export default class ThreeJSRenderer extends WebGLRenderer {
     ...props
   }) {
     super({ ...props });
+    this.camera.position.set(0, 0, 0);
+    this.camera.lookAt(scene.position);
     
     this.scene = scene;
-
     this.outputEncoding = sRGBEncoding;
     this.setClearColor(0x000000, 0);
 
