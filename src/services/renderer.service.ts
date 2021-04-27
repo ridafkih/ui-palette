@@ -26,8 +26,6 @@ export default class ThreeJSRenderer extends WebGLRenderer {
     this.scene = scene;
     this.outputEncoding = sRGBEncoding;
     this.setClearColor(0x000000, 0);
-
-    window.addEventListener("resize", () => handleResize(this), false);
   }
 
   updateViewport() {
@@ -39,12 +37,4 @@ export default class ThreeJSRenderer extends WebGLRenderer {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
   }
-}
-
-function handleResize(renderer: ThreeJSRenderer) {
-  const { parentElement } = renderer.domElement;
-
-  renderer.camera.aspect = (parentElement?.clientWidth || 1) / (parentElement?.clientHeight || 1);
-  renderer.camera.updateProjectionMatrix();
-  renderer.updateViewport();
 }

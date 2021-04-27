@@ -14,6 +14,7 @@ import { loadObject } from "../services/object.service";
 import { ObjectStateObserverHandler } from "../services/state.service";
 import { applyTextureToChild } from "../services/texture.service";
 import { setEnvironmentMap } from "../services/env.service";
+import { useWindowSize } from "../services/window.service";
 
 const objectStateHandler = new ObjectStateObserverHandler();
 
@@ -78,12 +79,13 @@ function animate() {
 }
 
 function Viewport() {
+  const windowSize = useWindowSize();
   const viewport = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     viewport.current?.appendChild(renderer.domElement);
     renderer.updateViewport();
-  }, []);
+  }, [windowSize]);
 
   return <div id="viewport" style={{ height: "80vh" }} ref={viewport}></div>;
 }
