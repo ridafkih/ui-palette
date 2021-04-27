@@ -15,8 +15,8 @@ export default class ThreeJSRenderer extends WebGLRenderer {
   );
 
   constructor(scene: Scene, {
-    width = window.innerWidth,
-    height = window.innerHeight,
+    width = 0,
+    height = 0,
     ...props
   }) {
     super({ ...props });
@@ -27,14 +27,24 @@ export default class ThreeJSRenderer extends WebGLRenderer {
     this.outputEncoding = sRGBEncoding;
     this.setClearColor(0x000000, 0);
 
-    this.setSize(width, height);
-
     window.addEventListener("resize", () => handleResize(this), false);
+  }
+
+  updateViewport() {
+    const { parentElement } = this.domElement;
+    const width = parentElement?.clientWidth || window.innerWidth;
+    const height = parentElement?.clientHeight || window.innerHeight;
+
+    this.setSize(width, height);
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
   }
 }
 
 function handleResize(renderer: ThreeJSRenderer) {
-  renderer.camera.aspect = window.innerWidth / window.innerHeight;
+  const { parentElement } = renderer.domElement;
+
+  renderer.camera.aspect = (parentElement?.clientWidth || 1) / (parentElement?.clientHeight || 1);
   renderer.camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.updateViewport();
 }

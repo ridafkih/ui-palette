@@ -1,8 +1,12 @@
 import Viewport from "./components/Viewport";
+import Controls from "./components/Controls";
 
 function App() {
   return (
-    <Viewport></Viewport>
+    <>
+      <Viewport></Viewport>
+      <Controls></Controls>
+    </>
   );
 }
 

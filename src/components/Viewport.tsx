@@ -1,11 +1,11 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
 import {
   Scene,
   PerspectiveCamera,
   AmbientLight,
   PointLight,
-  Object3D
+  Object3D,
 } from "three";
 
 import ThreeJSRenderer from "../services/renderer.service";
@@ -20,7 +20,10 @@ const objectStateHandler = new ObjectStateObserverHandler();
 const scene: Scene = new Scene();
 scene.background = null;
 
-const renderer: ThreeJSRenderer = new ThreeJSRenderer(scene, { antialias: true, alpha: true });
+const renderer: ThreeJSRenderer = new ThreeJSRenderer(scene, {
+  antialias: true,
+  alpha: true,
+});
 const camera: PerspectiveCamera = renderer.camera;
 setEnvironmentMap(renderer, "./environments/env.pic");
 
@@ -42,7 +45,7 @@ scene.add(pointLight);
   document.addEventListener("mousemove", ({ clientX, clientY }) => {
     const xMidRef = (clientX - window.innerWidth / 2) / window.innerWidth;
     const yMidRef = (clientY - window.innerHeight / 2) / window.innerHeight;
-  
+
     reference.state.rotation.y = xMidRef * 0.5;
     reference.state.rotation.x = yMidRef * 0.5;
   });
@@ -62,11 +65,10 @@ function Viewport() {
 
   useEffect(() => {
     viewport.current?.appendChild(renderer.domElement);
+    renderer.updateViewport();
   }, []);
 
-  return (
-    <div id="viewport" ref={viewport}></div>
-  )
+  return <div id="viewport" style={{ height: "100%" }} ref={viewport}></div>;
 }
 
-export default Viewport
+export default Viewport;
