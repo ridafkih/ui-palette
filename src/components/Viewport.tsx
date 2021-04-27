@@ -25,7 +25,6 @@ const renderer: ThreeJSRenderer = new ThreeJSRenderer(scene, {
   alpha: true,
 });
 
-
 const camera: PerspectiveCamera = renderer.camera;
 camera.position.set(0, 0, 0);
 camera.lookAt(scene.position);

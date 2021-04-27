@@ -19,7 +19,7 @@ export const applyTextureToChild = (
   texturePath: string
 ) => {
   object.traverse(object => {
-    if (object.name == childName && object instanceof Mesh)
+    if (object.name === childName && object instanceof Mesh)
     loadTexture(texturePath).then(texture => {
       object.material.map = texture;
     })
