@@ -34,6 +34,7 @@ export class StateObserver {
     position: { x: number; y: number; z: number };
     rotation: { x: number; y: number; z: number };
   };
+  private customStates: any = [];
 
   constructor(object: Object3D, name: string) {
     this.name = name || "";
@@ -44,5 +45,17 @@ export class StateObserver {
       position: { x: position.x, y: position.y, z: position.z },
       rotation: { x: rotation.x, y: rotation.y, z: rotation.z }
     };
+  }
+
+  addCustomState(name: string, value: any) {
+    this.customStates[name] = value;
+  }
+
+  setCustomState(name: string, value: any) {
+    this.customStates[name] = value;
+  }
+
+  getCustomState(name: string) {
+    return this.customStates[name];
   }
 }

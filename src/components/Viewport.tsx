@@ -40,15 +40,22 @@ scene.add(pointLight);
   );
 
   const reference = objectStateHandler.add(model, "iPhone");
+  reference.addCustomState("cursorOut", false);
   reference.state.position.z = -120;
 
   document.addEventListener("mousemove", ({ clientX, clientY }) => {
+    reference.setCustomState("cursorOut", false);
+
     const xMidRef = (clientX - window.innerWidth / 2) / window.innerWidth;
     const yMidRef = (clientY - window.innerHeight / 2) / window.innerHeight;
 
     reference.state.rotation.y = xMidRef * 0.25;
     reference.state.rotation.x = yMidRef * 0.25;
   });
+
+  document.addEventListener("mouseleave", () => {
+    reference.setCustomState("cursorOut", true);
+  })
 
   applyTextureToChild(model, "Screen_Wallpaper_0", "./texture/home.png");
 })();
