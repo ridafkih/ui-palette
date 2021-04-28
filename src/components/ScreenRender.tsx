@@ -6,7 +6,7 @@ import ColourPalette from "../types/colourpalette.interface";
 import { layouts } from "../services/layouts.service";
 
 const ScreenCanvas = styled.canvas<{ width: string; height: string }>`
-  /* display: none; */
+  display: none;
 
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;

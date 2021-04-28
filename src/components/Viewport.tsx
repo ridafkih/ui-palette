@@ -55,8 +55,8 @@ async function loadModelWithScreenTexture(
     const tilt = reference.getCustomState("tilt");
     if (!tilt) return;
 
-    const xMod = tilt ? 0.25 : 0;
-    const yMod = tilt ? 0.25 : 0;
+    const xMod = .25;
+    const yMod = .25;
 
     const targetX = (clientX - window.innerWidth / 2) / window.innerWidth;
     const targetY = (clientY - window.innerHeight / 2) / window.innerHeight;
