@@ -1,4 +1,5 @@
 import { 
+  CanvasTexture,
   Mesh,
   Object3D,
   Texture,
@@ -13,15 +14,18 @@ export const loadTexture = (path: string): Promise<Texture> => {
   });
 };
 
+export const loadCanvasTexture = (canvas: HTMLCanvasElement): CanvasTexture => {
+  const context = canvas.getContext("2d");
+  return new CanvasTexture(context!.canvas);
+}
+
 export const applyTextureToChild = (
   object: Object3D,
   childName: string,
-  texturePath: string
+  texture: Texture
 ) => {
   object.traverse(object => {
     if (object.name === childName && object instanceof Mesh)
-    loadTexture(texturePath).then(texture => {
-      object.material.map = texture;
-    })
+    object.material.map = texture;
   })
 }

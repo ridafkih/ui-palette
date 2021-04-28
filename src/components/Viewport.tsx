@@ -6,13 +6,17 @@ import {
   AmbientLight,
   PointLight,
   Object3D,
+  Texture,
 } from "three";
 
 import ThreeJSRenderer from "../services/renderer.service";
 
 import { loadObject } from "../services/object.service";
 import { ObjectStateObserverHandler } from "../services/state.service";
-import { applyTextureToChild } from "../services/texture.service";
+import {
+  applyTextureToChild,
+  loadCanvasTexture,
+} from "../services/texture.service";
 import { setEnvironmentMap } from "../services/env.service";
 import { useWindowSize } from "../services/window.service";
 
@@ -30,15 +34,16 @@ setEnvironmentMap(renderer, "./environments/env.pic");
 
 const ambientLight = new AmbientLight(0xffffff, 0.8);
 scene.add(ambientLight);
+
 const pointLight = new PointLight(0xffffff, 0.1);
 pointLight.position.set(64, 64, 0);
 scene.add(pointLight);
 
-(async () => {
-  const model: Object3D = await loadObject(
-    scene,
-    "./models/iphone_12_pro/model.glb"
-  );
+async function loadModelWithScreenTexture(
+  pathToModel: string,
+  texture: Texture
+) {
+  const model: Object3D = await loadObject(scene, pathToModel);
 
   const reference = objectStateHandler.add(model, "iPhone");
   reference.addCustomState("cursorOut", false);
@@ -63,29 +68,12 @@ scene.add(pointLight);
   document.addEventListener("mousemove", handleMouseMovement);
   document.addEventListener("mouseleave", handleMouseLeave);
 
-  applyTextureToChild(model, "Screen_Wallpaper_0", "./texture/home.png");
+  applyTextureToChild(model, "Screen_Wallpaper_0", texture);
 
   return () => {
     document.removeEventListener("mousemove", handleMouseMovement);
     document.removeEventListener("mouseleave", handleMouseLeave);
   };
-})();
-
-animate();
-function animate() {
-  requestAnimationFrame(animate);
-  objectStateHandler.updateObjects();
-  renderer.render(scene, camera);
-
-  // ** CUSTOM STATE OBSERVERS
-  const [reference] = objectStateHandler.getObjectsByName("iPhone");
-  if (!reference) return;
-  const cursorOut = reference.getCustomState("cursorOut");
-  if (cursorOut) {
-    reference.state.rotation.x *= 0.85;
-    reference.state.rotation.y *= 0.85;
-    reference.state.rotation.z *= 0.85;
-  }
 }
 
 function Viewport({ screenRender }: any) {
@@ -93,8 +81,34 @@ function Viewport({ screenRender }: any) {
   const viewport = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const canvasTexture = loadCanvasTexture(screenRender.current);
     viewport.current?.appendChild(renderer.domElement);
-  }, [])
+
+    loadModelWithScreenTexture(
+      "./models/iphone_12_pro/model.glb",
+      canvasTexture
+    );
+
+    animate();
+    function animate() {
+      requestAnimationFrame(animate);
+      objectStateHandler.updateObjects();
+      renderer.render(scene, camera);
+
+      // ** CANVAS TEXTURE UPDATE
+      canvasTexture.needsUpdate = true;
+
+      // ** CUSTOM STATE OBSERVERS
+      const [reference] = objectStateHandler.getObjectsByName("iPhone");
+      if (!reference) return;
+      const cursorOut = reference.getCustomState("cursorOut");
+      if (cursorOut) {
+        reference.state.rotation.x *= 0.85;
+        reference.state.rotation.y *= 0.85;
+        reference.state.rotation.z *= 0.85;
+      }
+    }
+  }, [screenRender]);
 
   useEffect(() => {
     renderer.updateViewport();
