@@ -21,7 +21,7 @@ export interface ScreenLayout {
   elements: ScreenElement[]
 }
 
-const CANVAS_WIDTH = 1280;
+const CANVAS_WIDTH = 1024;
 const CANVAS_HEIGHT = 2048;
 
 export const layouts: ScreenLayout[] = [

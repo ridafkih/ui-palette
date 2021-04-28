@@ -50,7 +50,7 @@ const ScreenRender = React.forwardRef<
     });
   }, [layout, context, colours]);
 
-  return <ScreenCanvas ref={ref} width="1280" height="2048"></ScreenCanvas>;
+  return <ScreenCanvas ref={ref} width="1024" height="2048"></ScreenCanvas>;
 });
 
 export default ScreenRender;
