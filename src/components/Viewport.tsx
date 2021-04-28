@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 import {
   Scene,
@@ -44,21 +44,31 @@ scene.add(pointLight);
   reference.addCustomState("cursorOut", false);
   reference.state.position.z = -120;
 
-  document.addEventListener("mousemove", ({ clientX, clientY }) => {
+  function handleMouseMovement({ clientX, clientY }: MouseEvent) {
     reference.setCustomState("cursorOut", false);
 
-    const targetX = (clientX - window.innerWidth / 2) / window.innerWidth * .25;
-    const targetY = (clientY - window.innerHeight / 2) / window.innerHeight * .25;
+    const targetX =
+      ((clientX - window.innerWidth / 2) / window.innerWidth) * 0.25;
+    const targetY =
+      ((clientY - window.innerHeight / 2) / window.innerHeight) * 0.25;
 
     reference.state.rotation.y = targetX;
     reference.state.rotation.x = targetY;
-  });
+  }
 
-  document.addEventListener("mouseleave", () => {
+  function handleMouseLeave() {
     reference.setCustomState("cursorOut", true);
-  })
+  }
+
+  document.addEventListener("mousemove", handleMouseMovement);
+  document.addEventListener("mouseleave", handleMouseLeave);
 
   applyTextureToChild(model, "Screen_Wallpaper_0", "./texture/home.png");
+
+  return () => {
+    document.removeEventListener("mousemove", handleMouseMovement);
+    document.removeEventListener("mouseleave", handleMouseLeave);
+  };
 })();
 
 animate();
