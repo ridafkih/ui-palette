@@ -6,7 +6,7 @@ import Selector from "../molecules/Selector";
 
 const ControlTitle = styled.div<{ margin?: number }>`
   color: #999999;
-  margin-left: ${props => props.margin || 0}px;
+  margin-left: ${(props) => props.margin || 0}px;
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 16px;
@@ -30,7 +30,7 @@ const ControlContainer = styled.div`
   margin: 0 16px;
 `;
 
-function Controls(props: { onPaletteChange?: Function }) {  
+function Controls(props: { onPaletteChange?: Function }) {
   return (
     <ControlsContainer>
       <ControlContainer>
@@ -43,15 +43,15 @@ function Controls(props: { onPaletteChange?: Function }) {
           options={[
             {
               label: "Social App",
-              value: "social-app"
+              value: "social-app",
             },
             {
               label: "Image App",
-              value: "image-app"
+              value: "image-app",
             },
             {
               label: "Blog App",
-              value: "blog-app"
+              value: "blog-app",
             },
           ]}
         ></Selector>
@@ -62,12 +62,12 @@ function Controls(props: { onPaletteChange?: Function }) {
           options={[
             {
               label: "3D View",
-              value: "3d-view"
+              value: "3d-view",
             },
             {
               label: "2D View",
-              value: "2d-view"
-            }
+              value: "2d-view",
+            },
           ]}
         ></Selector>
       </ControlContainer>

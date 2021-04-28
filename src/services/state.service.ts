@@ -23,7 +23,7 @@ export class ObjectStateObserverHandler {
   }
 
   getObjectsByName(query: string) {
-    return this.observers.filter(x => x.name === query);
+    return this.observers.filter((x) => x.name === query);
   }
 }
 
@@ -43,7 +43,7 @@ export class StateObserver {
 
     this.state = {
       position: { x: position.x, y: position.y, z: position.z },
-      rotation: { x: rotation.x, y: rotation.y, z: rotation.z }
+      rotation: { x: rotation.x, y: rotation.y, z: rotation.z },
     };
   }
 

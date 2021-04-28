@@ -1,9 +1,4 @@
-import { 
-  PerspectiveCamera,
-  Scene,
-  sRGBEncoding,
-  WebGLRenderer
-} from "three";
+import { PerspectiveCamera, Scene, sRGBEncoding, WebGLRenderer } from "three";
 
 export default class ThreeJSRenderer extends WebGLRenderer {
   scene!: Scene;
@@ -14,15 +9,11 @@ export default class ThreeJSRenderer extends WebGLRenderer {
     1000
   );
 
-  constructor(scene: Scene, {
-    width = 0,
-    height = 0,
-    ...props
-  }) {
+  constructor(scene: Scene, { width = 0, height = 0, ...props }) {
     super({ ...props });
     this.camera.position.set(0, 0, 0);
     this.camera.lookAt(scene.position);
-    
+
     this.scene = scene;
     this.outputEncoding = sRGBEncoding;
     this.setClearColor(0x000000, 0);

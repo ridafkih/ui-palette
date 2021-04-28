@@ -73,7 +73,9 @@ function Selector({ options }: { options: Option[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
 
-  const [selectedValue, setSelectedValue] = useState<string | null>(options[0].value);
+  const [selectedValue, setSelectedValue] = useState<string | null>(
+    options[0].value
+  );
 
   function handleOptionClick({
     currentTarget: option,
@@ -87,9 +89,11 @@ function Selector({ options }: { options: Option[] }) {
     const indicator = indicatorRef.current;
     if (!container || !indicator) return;
 
-    const selectedElement = document.querySelector(`[data-option-value='${selectedValue}']`) as HTMLElement;
+    const selectedElement = document.querySelector(
+      `[data-option-value='${selectedValue}']`
+    ) as HTMLElement;
     if (!selectedElement) return;
-    
+
     const containerBounds = container.getBoundingClientRect();
     const buttonBounds = selectedElement.getBoundingClientRect();
 

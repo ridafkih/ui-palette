@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import logo from '../icon.png';
+import logo from "../icon.png";
 
 const LogoContainer = styled.div`
   width: 100%;
@@ -13,18 +13,18 @@ const LogoContainer = styled.div`
 
   box-sizing: border-box;
   padding-top: 64px;
-`
+`;
 
 const Logo = styled.img`
   width: 180px;
-`
+`;
 
 function Header() {
   return (
     <LogoContainer>
       <Logo src={logo} />
     </LogoContainer>
-  )
+  );
 }
 
-export default Header
+export default Header;

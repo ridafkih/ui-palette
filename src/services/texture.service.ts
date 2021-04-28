@@ -1,10 +1,4 @@
-import { 
-  CanvasTexture,
-  Mesh,
-  Object3D,
-  Texture,
-  TextureLoader
-} from "three";
+import { CanvasTexture, Mesh, Object3D, Texture, TextureLoader } from "three";
 
 const textureLoader: TextureLoader = new TextureLoader();
 
@@ -17,15 +11,15 @@ export const loadTexture = (path: string): Promise<Texture> => {
 export const loadCanvasTexture = (canvas: HTMLCanvasElement): CanvasTexture => {
   const context = canvas.getContext("2d");
   return new CanvasTexture(context!.canvas);
-}
+};
 
 export const applyTextureToChild = (
   object: Object3D,
   childName: string,
   texture: Texture
 ) => {
-  object.traverse(object => {
+  object.traverse((object) => {
     if (object.name === childName && object instanceof Mesh)
-    object.material.map = texture;
-  })
-}
+      object.material.map = texture;
+  });
+};

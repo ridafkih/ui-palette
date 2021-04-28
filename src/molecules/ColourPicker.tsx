@@ -72,7 +72,7 @@ function ColourPicker(props: { onPaletteChange?: Function }) {
   const [colourPalette, setColourPalette] = useState<ColourPalette>(
     defaultColourPalette
   );
-    
+
   const handleChange = (color: { hex: string }) => {
     if (!selectedSwatch) return;
     setColourPalette({ ...colourPalette, [selectedSwatch]: color.hex });
@@ -104,8 +104,7 @@ function ColourPicker(props: { onPaletteChange?: Function }) {
   }, [windowSize, selectedSwatch]);
 
   useEffect(() => {
-    if (props.onPaletteChange)
-      props.onPaletteChange(colourPalette);
+    if (props.onPaletteChange) props.onPaletteChange(colourPalette);
   }, [props, colourPalette]);
 
   return (

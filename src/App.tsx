@@ -18,7 +18,10 @@ function App() {
 
   return (
     <>
-      <ScreenRender ref={screenRenderRef} colours={colourPalette}></ScreenRender>
+      <ScreenRender
+        ref={screenRenderRef}
+        colours={colourPalette}
+      ></ScreenRender>
       <Header></Header>
       <Viewport screenRender={screenRenderRef}></Viewport>
       <Controls onPaletteChange={handleColourChange}></Controls>

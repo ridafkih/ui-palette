@@ -8,11 +8,9 @@ export const setEnvironmentMap = (
 ) => {
   const pmremGenerator: PMREMGenerator = new PMREMGenerator(renderer);
   pmremGenerator.compileEquirectangularShader();
-  new RGBELoader()
-    .setDataType(UnsignedByteType)
-    .load(envMapPath, data => {
-      const { texture } = pmremGenerator.fromEquirectangular(data);
-      pmremGenerator.dispose();
-      renderer.scene.environment = texture;
-    })
+  new RGBELoader().setDataType(UnsignedByteType).load(envMapPath, (data) => {
+    const { texture } = pmremGenerator.fromEquirectangular(data);
+    pmremGenerator.dispose();
+    renderer.scene.environment = texture;
+  });
 };
