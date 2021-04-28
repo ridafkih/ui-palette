@@ -16,6 +16,10 @@ function App() {
     setColourPalette(palette);
   };
 
+  const handleSelectionChange = (res: any) => {
+    console.log(res);
+  }
+
   return (
     <>
       <ScreenRender
@@ -24,7 +28,10 @@ function App() {
       ></ScreenRender>
       <Header></Header>
       <Viewport screenRender={screenRenderRef}></Viewport>
-      <Controls onPaletteChange={handleColourChange}></Controls>
+      <Controls 
+        onPaletteChange={handleColourChange}
+        onSelectionChange={handleSelectionChange}
+      ></Controls>
     </>
   );
 }

@@ -67,7 +67,20 @@ interface Option {
   value: string;
 }
 
-function Selector({ options }: { options: Option[] }) {
+interface Selection {
+  fieldName: string,
+  selectedValue: string | null
+}
+
+function Selector({
+  fieldName,
+  options,
+  onSelectionChange,
+}: {
+  fieldName: string,
+  options: Option[];
+  onSelectionChange?: Function;
+}) {
   const windowSize = useWindowSize();
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -83,6 +96,13 @@ function Selector({ options }: { options: Option[] }) {
     const { optionValue } = option.dataset;
     setSelectedValue(optionValue ?? null);
   }
+
+  useEffect(() => {
+    if (!onSelectionChange) return;
+      const selection: Selection = { fieldName, selectedValue }; 
+      onSelectionChange(selection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedValue]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -101,7 +121,7 @@ function Selector({ options }: { options: Option[] }) {
 
     indicator.style.transform = `translateX(${diff}px)`;
     indicator.style.width = `${selectedElement.clientWidth}px`;
-  }, [selectedValue, windowSize]);
+  }, [windowSize, selectedValue]);
 
   return (
     <OptionsContainer ref={containerRef}>

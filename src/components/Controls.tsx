@@ -30,7 +30,10 @@ const ControlContainer = styled.div`
   margin: 0 16px;
 `;
 
-function Controls(props: { onPaletteChange?: Function }) {
+function Controls(props: {
+  onPaletteChange?: Function;
+  onSelectionChange?: Function;
+}) {
   return (
     <ControlsContainer>
       <ControlContainer>
@@ -40,6 +43,7 @@ function Controls(props: { onPaletteChange?: Function }) {
       <ControlContainer>
         <ControlTitle>App Type</ControlTitle>
         <Selector
+          fieldName="app-type"
           options={[
             {
               label: "Social App",
@@ -54,11 +58,13 @@ function Controls(props: { onPaletteChange?: Function }) {
               value: "blog-app",
             },
           ]}
+          onSelectionChange={props.onSelectionChange}
         ></Selector>
       </ControlContainer>
       <ControlContainer>
         <ControlTitle>View Type</ControlTitle>
         <Selector
+          fieldName="view-type"
           options={[
             {
               label: "3D View",
@@ -69,6 +75,7 @@ function Controls(props: { onPaletteChange?: Function }) {
               value: "2d-view",
             },
           ]}
+          onSelectionChange={props.onSelectionChange}
         ></Selector>
       </ControlContainer>
     </ControlsContainer>
