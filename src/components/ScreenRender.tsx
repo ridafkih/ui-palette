@@ -15,15 +15,17 @@ const ScreenCanvas = styled.canvas<{ width: string; height: string }>`
   transform-origin: top right;
 `;
 
-function ScreenRender(
-  { colours }: { colours: ColourPalette | null },
-  ref: any
-) {
+const ScreenRender = React.forwardRef<
+  HTMLCanvasElement,
+  { colours: ColourPalette | null }
+>(({ colours }, ref) => {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
   useEffect(() => {
-    const { current: canvas } = ref;
-    setContext(canvas.getContext("2d"));
+    if (ref && typeof ref !== "function") {
+      const { current: canvas } = ref;
+      setContext(canvas!.getContext("2d"));
+    }
   }, [ref]);
 
   useEffect(() => {
@@ -36,10 +38,15 @@ function ScreenRender(
     context.fillStyle = colours.accent;
     context.fillRect(0, canvas.height / 2, canvas.width / 2, canvas.height / 2);
     context.fillStyle = colours.background;
-    context.fillRect(canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2);
+    context.fillRect(
+      canvas.width / 2,
+      canvas.height / 2,
+      canvas.width / 2,
+      canvas.height / 2
+    );
   }, [colours, context]);
 
   return <ScreenCanvas ref={ref} width="1280" height="2048"></ScreenCanvas>;
-}
+});
 
-export default React.forwardRef(ScreenRender);
+export default ScreenRender;
