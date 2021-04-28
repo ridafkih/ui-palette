@@ -28,7 +28,15 @@ function ScreenRender(
 
   useEffect(() => {
     if (!context || !colours) return;
-    context.fillStyle = "#FFFFFF";
+    const { canvas } = context;
+    context.fillStyle = colours.main;
+    context.fillRect(0, 0, canvas.width / 2, canvas.height / 2);
+    context.fillStyle = colours.secondary;
+    context.fillRect(canvas.width / 2, 0, canvas.width / 2, canvas.height / 2);
+    context.fillStyle = colours.accent;
+    context.fillRect(0, canvas.height / 2, canvas.width / 2, canvas.height / 2);
+    context.fillStyle = colours.background;
+    context.fillRect(canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2);
   }, [colours, context]);
 
   return <ScreenCanvas ref={ref} width="1280" height="2048"></ScreenCanvas>;
