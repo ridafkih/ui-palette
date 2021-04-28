@@ -8,6 +8,9 @@ import type ColourPalette from "./types/colourpalette.interface";
 import type Selection from "./types/selection.interface";
 
 function App() {
+  const [layout, setLayout] = useState<string | null>(null);
+  const [tilt, setTilt] = useState<boolean>(true);
+
   const [colourPalette, setColourPalette] = useState<ColourPalette | null>(
     null
   );
@@ -17,19 +20,28 @@ function App() {
     setColourPalette(palette);
   };
 
-  const handleSelectionChange = (selection: Selection) => {
-    console.log(selection);
-  }
+  const handleSelectionChange = ({ fieldName, selectedValue }: Selection) => {
+    if (fieldName === "app-type") 
+      setLayout(selectedValue);
+
+    if (fieldName === "view-type") {
+      setTilt(selectedValue === "3d-view" ? true : false);
+    }
+  };
 
   return (
     <>
       <ScreenRender
         ref={screenRenderRef}
         colours={colourPalette}
+        layout={layout}
       ></ScreenRender>
       <Header></Header>
-      <Viewport screenRender={screenRenderRef}></Viewport>
-      <Controls 
+      <Viewport 
+        screenRender={screenRenderRef}
+        tilt={tilt}
+      ></Viewport>
+      <Controls
         onPaletteChange={handleColourChange}
         onSelectionChange={handleSelectionChange}
       ></Controls>

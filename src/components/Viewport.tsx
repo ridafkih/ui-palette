@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 import {
   Scene,
@@ -52,13 +52,17 @@ async function loadModelWithScreenTexture(
   function handleMouseMovement({ clientX, clientY }: MouseEvent) {
     reference.setCustomState("cursorOut", false);
 
-    const targetX =
-      ((clientX - window.innerWidth / 2) / window.innerWidth) * 0.25;
-    const targetY =
-      ((clientY - window.innerHeight / 2) / window.innerHeight) * 0.25;
+    const tilt = reference.getCustomState("tilt");
+    if (!tilt) return;
 
-    reference.state.rotation.y = targetX;
-    reference.state.rotation.x = targetY;
+    const xMod = tilt ? 0.25 : 0;
+    const yMod = tilt ? 0.25 : 0;
+
+    const targetX = (clientX - window.innerWidth / 2) / window.innerWidth;
+    const targetY = (clientY - window.innerHeight / 2) / window.innerHeight;
+
+    reference.state.rotation.y = targetX * xMod;
+    reference.state.rotation.x = targetY * yMod;
   }
 
   function handleMouseLeave() {
@@ -76,9 +80,11 @@ async function loadModelWithScreenTexture(
   };
 }
 
-function Viewport({ screenRender }: any) {
+function Viewport({ screenRender, tilt }: any) {
   const windowSize = useWindowSize();
   const viewport = useRef<HTMLDivElement>(null);
+  
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const canvasTexture = loadCanvasTexture(screenRender.current);
@@ -87,7 +93,7 @@ function Viewport({ screenRender }: any) {
     loadModelWithScreenTexture(
       "./models/iphone_12_pro/model.glb",
       canvasTexture
-    );
+    ).then(() => setLoaded(true));
 
     animate();
     function animate() {
@@ -101,8 +107,9 @@ function Viewport({ screenRender }: any) {
       // ** CUSTOM STATE OBSERVERS
       const [reference] = objectStateHandler.getObjectsByName("iPhone");
       if (!reference) return;
+      const tilt = reference.getCustomState("tilt");
       const cursorOut = reference.getCustomState("cursorOut");
-      if (cursorOut) {
+      if (cursorOut || !tilt) {
         reference.state.rotation.x *= 0.85;
         reference.state.rotation.y *= 0.85;
         reference.state.rotation.z *= 0.85;
@@ -114,7 +121,16 @@ function Viewport({ screenRender }: any) {
     renderer.updateViewport();
   }, [windowSize]);
 
-  return <div id="viewport" style={{ height: "80vh" }} ref={viewport}></div>;
+  useEffect(() => {
+    const [reference] = objectStateHandler.getObjectsByName("iPhone");
+    if (reference) {
+      reference.setCustomState("tilt", tilt);
+    }
+  }, [tilt, loaded]);
+
+  return (
+    <div id="viewport" style={{ height: "80vh" }} ref={viewport}></div>
+  )
 }
 
 export default Viewport;

@@ -10,13 +10,13 @@ interface ScreenElementDimensions {
 
 type ColorType = "main" | "secondary" | "accent" | "background";
 
-interface ScreenElement {
+export interface ScreenElement {
   colorType: ColorType,
   position: ScreenElementPosition,
   dimensions: ScreenElementDimensions
 }
 
-interface ScreenLayout {
+export interface ScreenLayout {
   value: string,
   elements: ScreenElement[]
 }
@@ -63,6 +63,104 @@ export const layouts: ScreenLayout[] = [
       },
       {
         colorType: "background",
+        position: {
+          x: CANVAS_WIDTH / 2,
+          y: CANVAS_HEIGHT / 2
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      }
+    ]
+  },
+  {
+    value: "image-app",
+    elements: [
+      {
+        colorType: "secondary",
+        position: {
+          x: 0,
+          y: 0
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      },
+      {
+        colorType: "accent",
+        position: {
+          x: CANVAS_WIDTH / 2,
+          y: 0
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      },
+      {
+        colorType: "background",
+        position: {
+          x: 0,
+          y: CANVAS_HEIGHT / 2
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      },
+      {
+        colorType: "main",
+        position: {
+          x: CANVAS_WIDTH / 2,
+          y: CANVAS_HEIGHT / 2
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      }
+    ]
+  },
+  {
+    value: "blog-app",
+    elements: [
+      {
+        colorType: "accent",
+        position: {
+          x: 0,
+          y: 0
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      },
+      {
+        colorType: "background",
+        position: {
+          x: CANVAS_WIDTH / 2,
+          y: 0
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      },
+      {
+        colorType: "main",
+        position: {
+          x: 0,
+          y: CANVAS_HEIGHT / 2
+        },
+        dimensions: {
+          width: CANVAS_WIDTH / 2,
+          height: CANVAS_HEIGHT / 2,
+        }
+      },
+      {
+        colorType: "secondary",
         position: {
           x: CANVAS_WIDTH / 2,
           y: CANVAS_HEIGHT / 2

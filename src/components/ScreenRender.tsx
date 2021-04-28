@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 import ColourPalette from "../types/colourpalette.interface";
 
+import { layouts } from "../services/layouts.service";
+
 const ScreenCanvas = styled.canvas<{ width: string; height: string }>`
+  /* display: none; */
+
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
 
@@ -17,8 +21,8 @@ const ScreenCanvas = styled.canvas<{ width: string; height: string }>`
 
 const ScreenRender = React.forwardRef<
   HTMLCanvasElement,
-  { colours: ColourPalette | null }
->(({ colours }, ref) => {
+  { colours: ColourPalette | null; layout: string | null }
+>(({ colours, layout }, ref) => {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
   useEffect(() => {
@@ -29,22 +33,22 @@ const ScreenRender = React.forwardRef<
   }, [ref]);
 
   useEffect(() => {
-    if (!context || !colours) return;
-    const { canvas } = context;
-    context.fillStyle = colours.main;
-    context.fillRect(0, 0, canvas.width / 2, canvas.height / 2);
-    context.fillStyle = colours.secondary;
-    context.fillRect(canvas.width / 2, 0, canvas.width / 2, canvas.height / 2);
-    context.fillStyle = colours.accent;
-    context.fillRect(0, canvas.height / 2, canvas.width / 2, canvas.height / 2);
-    context.fillStyle = colours.background;
-    context.fillRect(
-      canvas.width / 2,
-      canvas.height / 2,
-      canvas.width / 2,
-      canvas.height / 2
-    );
-  }, [colours, context]);
+    if (!context || !layout || !colours) return;
+    const screenLayout = layouts.find((x) => x.value === layout);
+    if (!screenLayout) return;
+
+    screenLayout.elements.forEach((screenElement) => {
+      const { position, dimensions } = screenElement;
+
+      context.fillStyle = colours[screenElement.colorType];
+      context.fillRect(
+        position.x,
+        position.y,
+        dimensions.width,
+        dimensions.height
+      );
+    });
+  }, [layout, context, colours]);
 
   return <ScreenCanvas ref={ref} width="1280" height="2048"></ScreenCanvas>;
 });
