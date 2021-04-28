@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const ScreenCanvas = styled.canvas`
-  width: 1280px;
-  height: 2048px;
+import ColourPalette from "../types/colourpalette.interface";
+
+const ScreenCanvas = styled.canvas<{ width: string; height: string }>`
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
 
   position: fixed;
   top: 8px;
@@ -13,18 +15,23 @@ const ScreenCanvas = styled.canvas`
   transform-origin: top right;
 `;
 
-function ScreenRender(props: any, ref: any) {
-  useEffect(() => {
-    const canvas = ref.current!;
-    const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#FFF";
+function ScreenRender(
+  { colours }: { colours: ColourPalette | null },
+  ref: any
+) {
+  const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "red";
-    ctx.fillRect(0, 0, canvas.width / 2, canvas.height / 2);
+  useEffect(() => {
+    const { current: canvas } = ref;
+    setContext(canvas.getContext("2d"));
   }, [ref]);
 
-  return <ScreenCanvas ref={ref}></ScreenCanvas>;
+  useEffect(() => {
+    if (!context || !colours) return;
+    context.fillStyle = "#FFFFFF";
+  }, [colours, context]);
+
+  return <ScreenCanvas ref={ref} width="1280" height="2048"></ScreenCanvas>;
 }
 
 export default React.forwardRef(ScreenRender);

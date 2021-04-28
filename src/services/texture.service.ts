@@ -20,6 +20,6 @@ export const applyTextureToChild = (
 ) => {
   object.traverse((object) => {
     if (object.name === childName && object instanceof Mesh)
-      object.material.map = texture;
+    object.material.map = texture;
   });
 };
