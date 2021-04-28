@@ -3,6 +3,9 @@ import styled from "styled-components";
 import ColourPicker from "../molecules/ColourPicker";
 
 import Selector from "../molecules/Selector";
+import ColourPalette from "../types/colourpalette.interface";
+
+import type Selection from '../types/selection.interface';
 
 const ControlTitle = styled.div<{ margin?: number }>`
   color: #999999;
@@ -31,8 +34,8 @@ const ControlContainer = styled.div`
 `;
 
 function Controls(props: {
-  onPaletteChange?: Function;
-  onSelectionChange?: Function;
+  onPaletteChange?: (palette: ColourPalette) => void;
+  onSelectionChange?: (selection: Selection) => void;
 }) {
   return (
     <ControlsContainer>

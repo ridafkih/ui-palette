@@ -4,7 +4,8 @@ import Controls from "./components/Controls";
 import ScreenRender from "./components/ScreenRender";
 import React, { useRef, useState } from "react";
 
-import ColourPalette from "./types/colourpalette.interface";
+import type ColourPalette from "./types/colourpalette.interface";
+import type Selection from "./types/selection.interface";
 
 function App() {
   const [colourPalette, setColourPalette] = useState<ColourPalette | null>(
@@ -16,8 +17,8 @@ function App() {
     setColourPalette(palette);
   };
 
-  const handleSelectionChange = (res: any) => {
-    console.log(res);
+  const handleSelectionChange = (selection: Selection) => {
+    console.log(selection);
   }
 
   return (

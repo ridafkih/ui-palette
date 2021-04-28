@@ -59,7 +59,9 @@ const defaultColourPalette: ColourPalette = {
   background: "#000",
 };
 
-function ColourPicker(props: { onPaletteChange?: Function }) {
+function ColourPicker(props: {
+  onPaletteChange?: (palette: ColourPalette) => void;
+}) {
   const windowSize = useWindowSize();
 
   const colourPicker = useRef<ChromePicker>(null);

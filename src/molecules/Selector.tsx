@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useWindowSize } from "../services/window.service";
 
+import Selection from '../types/selection.interface';
+
 const OptionsContainer = styled.div`
   border-radius: 64px;
 
@@ -67,19 +69,14 @@ interface Option {
   value: string;
 }
 
-interface Selection {
-  fieldName: string,
-  selectedValue: string | null
-}
-
 function Selector({
   fieldName,
   options,
   onSelectionChange,
 }: {
-  fieldName: string,
+  fieldName: string;
   options: Option[];
-  onSelectionChange?: Function;
+  onSelectionChange?: (selection: Selection) => void;
 }) {
   const windowSize = useWindowSize();
 
@@ -99,9 +96,8 @@ function Selector({
 
   useEffect(() => {
     if (!onSelectionChange) return;
-      const selection: Selection = { fieldName, selectedValue }; 
-      onSelectionChange(selection);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      onSelectionChange({ fieldName, selectedValue });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedValue]);
 
   useEffect(() => {
