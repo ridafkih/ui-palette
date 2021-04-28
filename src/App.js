@@ -1,14 +1,17 @@
 import Header from "./components/Header";
 import Viewport from "./components/Viewport";
 import Controls from "./components/Controls";
-import Canvas from "./components/Canvas";
+import ScreenRender from "./components/ScreenRender";
+import React, { useRef } from "react";
 
 function App() {
+  const screenRenderRef = useRef(null);
+  
   return (
     <>
-      <Canvas></Canvas>
+      <ScreenRender ref={screenRenderRef}></ScreenRender>
       <Header></Header>
-      <Viewport></Viewport>
+      <Viewport screenRender={screenRenderRef}></Viewport>
       <Controls></Controls>
     </>
   );

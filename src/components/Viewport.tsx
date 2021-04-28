@@ -88,10 +88,10 @@ function animate() {
   }
 }
 
-function Viewport() {
+function Viewport({ screenRender }: any) {
   const windowSize = useWindowSize();
   const viewport = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
     viewport.current?.appendChild(renderer.domElement);
     renderer.updateViewport();
