@@ -15,13 +15,13 @@ const PickerContainer = styled.div`
   padding: 7px;
 `;
 
-const Picker = styled.div<{ defaultColour?: string }>`
+const Picker = styled.div<{ colour?: string }>`
   width: 16px;
   height: 16px;
 
   border-radius: 50%;
 
-  color: ${props => props.defaultColour|| "#FFFFFF"};
+  color: ${(props) => props.colour || "#FFFFFF"};
 
   background: currentColor;
   box-shadow: 0 0 0 3px #1a1a1a, 0 0 0 6px currentColor;
@@ -51,34 +51,44 @@ interface SwatchPosition {
   left: number;
 }
 
+interface ColourPalette {
+  main: string;
+  secondary: string;
+  accent: string;
+  background: string;
+}
+
+const defaultColourPalette: ColourPalette = {
+  main: "#FFF",
+  secondary: "#AFAFAF",
+  accent: "#888",
+  background: "#000",
+};
+
 function ColourPicker() {
   const windowSize = useWindowSize();
 
-  const [selectedSwatch, setSelectedSwatch] = useState<string | null>(null);
   const colourPicker = useRef<ChromePicker>(null);
-  const [colour, setColour] = useState<string>("#fff");
 
+  const [selectedSwatch, setSelectedSwatch] = useState<string | null>(null);
+  const [colour, setColour] = useState<string>("#fff");
   const [swatchPosition, setSwatchPosition] = useState<SwatchPosition | null>(
     null
   );
-
+  const [colourPalette, setColourPalette] = useState<ColourPalette>(
+    defaultColourPalette
+  );
+    
   const handleChange = (color: { hex: string }) => {
     if (!selectedSwatch) return;
-    const selectedElement: HTMLElement | null = document.querySelector(
-      `[data-colour-name="${selectedSwatch}"]`
-    );
-
-    if (!selectedElement) return;
-
-    selectedElement.dataset.colourValue = color.hex;
-    selectedElement.style.color = color.hex;
+    setColourPalette({ ...colourPalette, [selectedSwatch]: color.hex });
     setColour(color.hex);
   };
 
   const handleClick = ({ currentTarget }: React.MouseEvent<HTMLElement>) => {
     const { colourName, colourValue }: any = currentTarget.dataset;
-    setColour(colourValue);
     setSelectedSwatch(colourName!);
+    setColour(colourValue);
   };
 
   const repositionSwatch = ({ x, y }: { x: number; y: number }) => {
@@ -123,26 +133,26 @@ function ColourPicker() {
       ) : null}
       <Picker
         data-colour-name="main"
-        defaultColour={"#FFFFFF"}
-        data-colour-value={"#FFFFFF"}
+        data-colour-value={colourPalette.main}
+        colour={colourPalette.main}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="secondary"
-        defaultColour={"#AFAFAF"}
-        data-colour-value={"#AFAFAF"}
+        data-colour-value={colourPalette.secondary}
+        colour={colourPalette.secondary}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="accent"
-        defaultColour={"#888888"}
-        data-colour-value={"#888888"}
+        data-colour-value={colourPalette.accent}
+        colour={colourPalette.accent}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="background"
-        defaultColour={"#000000"}
-        data-colour-value={"#000000"}
+        data-colour-value={colourPalette.background}
+        colour={colourPalette.background}
         onClick={handleClick}
       ></Picker>
     </PickerContainer>
