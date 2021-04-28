@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ChromePicker } from "react-color";
 import { useWindowSize } from "../services/window.service";
+import ColourPalette from "../types/colourpalette.interface";
 
 const PickerContainer = styled.div`
   width: 100%;
@@ -51,13 +52,6 @@ interface SwatchPosition {
   left: number;
 }
 
-interface ColourPalette {
-  main: string;
-  secondary: string;
-  accent: string;
-  background: string;
-}
-
 const defaultColourPalette: ColourPalette = {
   main: "#FFF",
   secondary: "#AFAFAF",
@@ -65,13 +59,13 @@ const defaultColourPalette: ColourPalette = {
   background: "#000",
 };
 
-function ColourPicker() {
+function ColourPicker(props: { onPaletteChange?: Function }) {
   const windowSize = useWindowSize();
 
   const colourPicker = useRef<ChromePicker>(null);
 
+  const [colour, setColour] = useState<string>("#FFF");
   const [selectedSwatch, setSelectedSwatch] = useState<string | null>(null);
-  const [colour, setColour] = useState<string>("#fff");
   const [swatchPosition, setSwatchPosition] = useState<SwatchPosition | null>(
     null
   );
@@ -108,6 +102,11 @@ function ColourPicker() {
     const { x, y } = selectedElement!.getBoundingClientRect();
     repositionSwatch({ x, y });
   }, [windowSize, selectedSwatch]);
+
+  useEffect(() => {
+    if (props.onPaletteChange)
+      props.onPaletteChange(colourPalette);
+  }, [props, colourPalette]);
 
   return (
     <PickerContainer>

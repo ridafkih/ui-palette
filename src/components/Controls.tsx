@@ -30,12 +30,12 @@ const ControlContainer = styled.div`
   margin: 0 16px;
 `;
 
-function Controls() {
+function Controls(props: { onPaletteChange?: Function }) {  
   return (
     <ControlsContainer>
       <ControlContainer>
         <ControlTitle>Colour Selection</ControlTitle>
-        <ColourPicker></ColourPicker>
+        <ColourPicker onPaletteChange={props.onPaletteChange}></ColourPicker>
       </ControlContainer>
       <ControlContainer>
         <ControlTitle>App Type</ControlTitle>
