@@ -25,6 +25,7 @@ export default class ThreeJSRenderer extends WebGLRenderer {
     const height = parentElement?.clientHeight || window.innerHeight;
 
     this.setSize(width, height);
+    this.setPixelRatio(window.devicePixelRatio);
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
   }
