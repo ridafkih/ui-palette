@@ -49,15 +49,15 @@ function Controls(props: {
           fieldName="app-screen"
           options={[
             {
-              label: "Register Screen",
+              label: "Register",
               value: "register-screen",
             },
             {
-              label: "Social Screen",
+              label: "Social",
               value: "social-screen",
             },
             {
-              label: "Settings Screen",
+              label: "Settings",
               value: "settings-screen",
             },
           ]}

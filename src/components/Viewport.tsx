@@ -30,12 +30,11 @@ const renderer: ThreeJSRenderer = new ThreeJSRenderer(scene, {
   alpha: true,
 });
 const camera: PerspectiveCamera = renderer.camera;
-setEnvironmentMap(renderer, "./environments/env.pic");
 
-const ambientLight = new AmbientLight(0xffffff, 0.8);
+const ambientLight = new AmbientLight(0xffffff, 0.7);
 scene.add(ambientLight);
 
-const pointLight = new PointLight(0xffffff, 0.1);
+const pointLight = new PointLight(0xffffff, 0.9);
 pointLight.position.set(64, 64, 0);
 scene.add(pointLight);
 
@@ -124,9 +123,13 @@ function Viewport({ screenRender, tilt }: any) {
 
   useEffect(() => {
     const [reference] = objectStateHandler.getObjectsByName("iPhone");
-    if (reference) {
+    if (reference)
       reference.setCustomState("tilt", tilt);
-    }
+
+    if (tilt)
+      return setEnvironmentMap(renderer, "./environments/env.pic");
+      
+    scene.environment = null;
   }, [tilt, loaded]);
 
   return (
