@@ -16,13 +16,13 @@ const PickerContainer = styled.div`
   padding: 7px;
 `;
 
-const Picker = styled.div<{ colour?: string }>`
+const Picker = styled.div`
   width: 16px;
   height: 16px;
 
   border-radius: 50%;
 
-  color: ${(props) => props.colour || "#FFFFFF"};
+  color: #FFFFFF;
 
   background: currentColor;
   box-shadow: 0 0 0 3px #1a1a1a, 0 0 0 6px currentColor;
@@ -134,25 +134,25 @@ function ColourPicker(props: {
       <Picker
         data-colour-name="main"
         data-colour-value={colourPalette.main}
-        colour={colourPalette.main}
+        style={{ color: colourPalette.main }}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="secondary"
         data-colour-value={colourPalette.secondary}
-        colour={colourPalette.secondary}
+        style={{ color: colourPalette.secondary }}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="accent"
         data-colour-value={colourPalette.accent}
-        colour={colourPalette.accent}
+        style={{ color: colourPalette.accent }}
         onClick={handleClick}
       ></Picker>
       <Picker
         data-colour-name="background"
         data-colour-value={colourPalette.background}
-        colour={colourPalette.background}
+        style={{ color: colourPalette.background }}
         onClick={handleClick}
       ></Picker>
     </PickerContainer>
