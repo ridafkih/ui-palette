@@ -19,10 +19,14 @@ const ControlsContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
 
-  padding-bottom: 64px;
+  margin-bottom: 64px;
 
   display: flex;
   justify-content: center;
+
+  @media (max-height: 1000px) {
+    zoom: 67%;
+  }
 `;
 
 const ControlContainer = styled.div`
