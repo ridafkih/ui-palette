@@ -42,14 +42,16 @@ const equalizeRGB = ({ r }: RGB): RGB => {
 
 export const determineForegroundColour = (
   foreground: string,
-  background: string
+  background: string,
+  threshold: number = 3.5,
+  log: boolean = false
 ) => {
   const rgbForeground = convertHexToRGB(foreground);
   const rgbBackground = convertHexToRGB(background);
 
   const contrast = getContrast(rgbForeground, rgbBackground);
 
-  return contrast < 3.5
+  return contrast <= threshold
     ? rgbToString(equalizeRGB(invertRGB(rgbForeground)))
     : rgbToString(rgbForeground);
 };
