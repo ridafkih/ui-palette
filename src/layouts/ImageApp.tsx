@@ -12,6 +12,7 @@ const ImageApp = React.forwardRef(
         viewBox="0 0 375 812"
         fill="none"
         ref={ref}
+        display="none"
       >
         <g clipPath="url(#clip0)">
           <rect width="375" height="812" fill={props.colours.main} />
