@@ -44,21 +44,21 @@ function Controls(props: {
         <ColourPicker onPaletteChange={props.onPaletteChange}></ColourPicker>
       </ControlContainer>
       <ControlContainer>
-        <ControlTitle>App Type</ControlTitle>
+        <ControlTitle>App Screen</ControlTitle>
         <Selector
-          fieldName="app-type"
+          fieldName="app-screen"
           options={[
             {
-              label: "Social App",
-              value: "social-app",
+              label: "Register Screen",
+              value: "register-screen",
             },
             {
-              label: "Image App",
-              value: "image-app",
+              label: "Social Screen",
+              value: "social-screen",
             },
             {
-              label: "Blog App",
-              value: "blog-app",
+              label: "Settings Screen",
+              value: "settings-screen",
             },
           ]}
           onSelectionChange={props.onSelectionChange}

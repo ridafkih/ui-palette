@@ -2,7 +2,7 @@ import React from "react";
 
 import type ColourPalette from "../types/colourpalette.interface";
 
-const BlogApp = React.forwardRef(
+const RegisterScreen = React.forwardRef(
   (props: { colours: ColourPalette }, ref: any) => {
     return (
       <svg
@@ -243,4 +243,4 @@ const BlogApp = React.forwardRef(
   }
 );
 
-export default BlogApp;
+export default RegisterScreen;

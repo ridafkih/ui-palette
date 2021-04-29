@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-import logo from "../icon.png";
+import ColourPalette from "../types/colourpalette.interface";
 
 const LogoContainer = styled.div`
   width: 100%;
@@ -15,14 +14,18 @@ const LogoContainer = styled.div`
   padding-top: 64px;
 `;
 
-const Logo = styled.img`
-  width: 180px;
-`;
+const TextLogo = styled.div`
+  font-size: 48px;
+  font-weight: 600;
+  filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 1));
+`
 
-function Header() {
+function Header({colourPalette}: {colourPalette: ColourPalette | null}) {
   return (
     <LogoContainer>
-      <Logo src={logo} />
+      <TextLogo>
+        UI<span className="highlight" style={{ color: colourPalette?.accent }}>Palette</span>
+      </TextLogo>
     </LogoContainer>
   );
 }

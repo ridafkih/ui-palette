@@ -21,7 +21,7 @@ function App() {
   };
 
   const handleSelectionChange = ({ fieldName, selectedValue }: Selection) => {
-    if (fieldName === "app-type") 
+    if (fieldName === "app-screen") 
       setLayout(selectedValue);
 
     if (fieldName === "view-type") {
@@ -36,7 +36,7 @@ function App() {
         colours={colourPalette}
         layout={layout}
       ></ScreenRender>
-      <Header></Header>
+      <Header colourPalette={colourPalette}></Header>
       <Viewport 
         screenRender={screenRenderRef}
         tilt={tilt}

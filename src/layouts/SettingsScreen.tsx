@@ -2,7 +2,7 @@ import React from "react";
 
 import type ColourPalette from "../types/colourpalette.interface";
 
-const ImageApp = React.forwardRef(
+const SettingsScreen = React.forwardRef(
   (props: { colours: ColourPalette }, ref: any) => {
     return (
       <svg
@@ -393,4 +393,4 @@ const ImageApp = React.forwardRef(
   }
 );
 
-export default ImageApp;
+export default SettingsScreen;

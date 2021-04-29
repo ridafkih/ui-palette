@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import SocialApp from "../layouts/SocialApp";
-import ImageApp from "../layouts/ImageApp";
-import BlogApp from "../layouts/BlogApp";
+import SocialScreen from "../layouts/SocialScreen";
+import SettingsScreen from "../layouts/SettingsScreen";
+import RegisterScreen from "../layouts/RegisterScreen";
 
 import ColourPalette from "../types/colourpalette.interface";
 
@@ -52,14 +52,14 @@ const ScreenRender = React.forwardRef<
 
   return (
     <>
-      {layout === "social-app" && colours && (
-        <SocialApp colours={colours} ref={svgScreen}></SocialApp>
+      {layout === "register-screen" && colours && (
+        <RegisterScreen colours={colours} ref={svgScreen}></RegisterScreen>
       )}
-      {layout === "image-app" && colours && (
-        <ImageApp colours={colours} ref={svgScreen}></ImageApp>
+      {layout === "social-screen" && colours && (
+        <SocialScreen colours={colours} ref={svgScreen}></SocialScreen>
       )}
-      {layout === "blog-app" && colours && (
-        <BlogApp colours={colours} ref={svgScreen}></BlogApp>
+      {layout === "settings-screen" && colours && (
+        <SettingsScreen colours={colours} ref={svgScreen}></SettingsScreen>
       )}
       <ScreenCanvas ref={ref} width="1024" height="2048"></ScreenCanvas>
     </>
