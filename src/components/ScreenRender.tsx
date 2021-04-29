@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import FeedApp from "../layouts/FeedApp";
+
+import SocialApp from "../layouts/SocialApp";
 import ImageApp from "../layouts/ImageApp";
 
 import ColourPalette from "../types/colourpalette.interface";
@@ -51,7 +52,7 @@ const ScreenRender = React.forwardRef<
   return (
     <>
       {layout === "social-app" && colours && (
-        <FeedApp colours={colours} ref={svgScreen}></FeedApp>
+        <SocialApp colours={colours} ref={svgScreen}></SocialApp>
       )}
       {layout === "image-app" && colours && (
         <ImageApp colours={colours} ref={svgScreen}></ImageApp>
