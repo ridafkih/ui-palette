@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import SocialApp from "../layouts/SocialApp";
 import ImageApp from "../layouts/ImageApp";
+import BlogApp from "../layouts/BlogApp";
 
 import ColourPalette from "../types/colourpalette.interface";
 
@@ -56,6 +57,9 @@ const ScreenRender = React.forwardRef<
       )}
       {layout === "image-app" && colours && (
         <ImageApp colours={colours} ref={svgScreen}></ImageApp>
+      )}
+      {layout === "blog-app" && colours && (
+        <BlogApp colours={colours} ref={svgScreen}></BlogApp>
       )}
       <ScreenCanvas ref={ref} width="1024" height="2048"></ScreenCanvas>
     </>

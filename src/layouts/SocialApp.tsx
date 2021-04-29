@@ -12,8 +12,8 @@ const SocialApp = React.forwardRef(
         height="812"
         viewBox="0 0 375 812"
         fill="none"
-        ref={ref}
         display="none"
+        ref={ref}
       >
         <g clipPath="url(#clip0)">
           <rect width="375" height="812" fill={props.colours.main} />
