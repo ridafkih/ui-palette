@@ -25,7 +25,7 @@ function App() {
       setLayout(selectedValue);
 
     if (fieldName === "view-type") {
-      setTilt(selectedValue === "3d-view" ? true : false);
+      setTilt(selectedValue === "3d-view");
     }
   };
 
