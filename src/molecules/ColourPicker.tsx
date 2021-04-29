@@ -54,9 +54,9 @@ interface SwatchPosition {
 
 const defaultColourPalette: ColourPalette = {
   main: "#FFF",
-  secondary: "#AFAFAF",
-  accent: "#888",
-  background: "#000",
+  secondary: "#30444E",
+  accent: "#3ED598",
+  background: "#22343C",
 };
 
 function ColourPicker(props: {

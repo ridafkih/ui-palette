@@ -88,6 +88,7 @@ function Viewport({ screenRender, tilt }: any) {
 
   useEffect(() => {
     const canvasTexture = loadCanvasTexture(screenRender.current);
+
     viewport.current?.appendChild(renderer.domElement);
 
     loadModelWithScreenTexture(

@@ -1,4 +1,4 @@
-import { CanvasTexture, Mesh, Object3D, Texture, TextureLoader } from "three";
+import { CanvasTexture, Mesh, Object3D, sRGBEncoding, Texture, TextureLoader } from "three";
 
 const textureLoader: TextureLoader = new TextureLoader();
 
@@ -10,7 +10,9 @@ export const loadTexture = (path: string): Promise<Texture> => {
 
 export const loadCanvasTexture = (canvas: HTMLCanvasElement): CanvasTexture => {
   const context = canvas.getContext("2d");
-  return new CanvasTexture(context!.canvas);
+  const texture = new CanvasTexture(context!.canvas);
+  texture.encoding = sRGBEncoding;
+  return texture;
 };
 
 export const applyTextureToChild = (
