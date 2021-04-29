@@ -55,8 +55,8 @@ interface SwatchPosition {
 const defaultColourPalette: ColourPalette = {
   main: "#FFF",
   secondary: "#30444E",
-  accent: "#3ED598",
   background: "#22343C",
+  accent: "#3ED598",
 };
 
 function ColourPicker(props: {
@@ -144,15 +144,15 @@ function ColourPicker(props: {
         onClick={handleClick}
       ></Picker>
       <Picker
-        data-colour-name="accent"
-        data-colour-value={colourPalette.accent}
-        style={{ color: colourPalette.accent }}
-        onClick={handleClick}
-      ></Picker>
-      <Picker
         data-colour-name="background"
         data-colour-value={colourPalette.background}
         style={{ color: colourPalette.background }}
+        onClick={handleClick}
+      ></Picker>
+      <Picker
+        data-colour-name="accent"
+        data-colour-value={colourPalette.accent}
+        style={{ color: colourPalette.accent }}
         onClick={handleClick}
       ></Picker>
     </PickerContainer>
