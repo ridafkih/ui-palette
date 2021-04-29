@@ -7,6 +7,7 @@ import {
   PointLight,
   Object3D,
   Texture,
+  Mesh
 } from "three";
 
 import ThreeJSRenderer from "../services/renderer.service";
@@ -37,6 +38,8 @@ scene.add(ambientLight);
 const pointLight = new PointLight(0xffffff, 0.9);
 pointLight.position.set(64, 64, 0);
 scene.add(pointLight);
+
+setEnvironmentMap(renderer, "./environments/env.pic");
 
 async function loadModelWithScreenTexture(
   pathToModel: string,
@@ -114,6 +117,24 @@ function Viewport({ screenRender, tilt }: any) {
         reference.state.rotation.y *= 0.85;
         reference.state.rotation.z *= 0.85;
       }
+
+      // ** ANIMATE DOWN ENVMAP
+      reference.object.traverse(child => {
+        if (child instanceof Mesh) {
+          const intensity = child.material.envMapIntensity;
+          if (intensity >= 0 && !tilt) 
+            child.material.envMapIntensity -= 0.08;
+            
+          if (child.material.envMapIntensity < 0)
+            child.material.envMapIntensity = 0;
+            
+          if (intensity <= 1 && tilt)
+            child.material.envMapIntensity += 0.08;
+
+          if (child.material.envMapIntensity > 1)
+            child.material.envMapIntensity = 1;
+        }
+      });
     }
   }, [screenRender]);
 
@@ -125,11 +146,6 @@ function Viewport({ screenRender, tilt }: any) {
     const [reference] = objectStateHandler.getObjectsByName("iPhone");
     if (reference)
       reference.setCustomState("tilt", tilt);
-
-    if (tilt)
-      return setEnvironmentMap(renderer, "./environments/env.pic");
-      
-    scene.environment = null;
   }, [tilt, loaded]);
 
   return (
