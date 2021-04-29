@@ -1,4 +1,5 @@
 import React from "react";
+import { determineForegroundColour } from "../services/colour.service";
 
 import type ColourPalette from "../types/colourpalette.interface";
 
