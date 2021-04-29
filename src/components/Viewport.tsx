@@ -124,7 +124,7 @@ function Viewport({ screenRender, tilt }: any) {
           const intensity = child.material.envMapIntensity;
           if (intensity >= 0 && !tilt) 
             child.material.envMapIntensity -= 0.08;
-            
+
           if (child.material.envMapIntensity < 0)
             child.material.envMapIntensity = 0;
             
