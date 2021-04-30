@@ -43,8 +43,7 @@ const equalizeRGB = ({ r }: RGB): RGB => {
 export const determineForegroundColour = (
   foreground: string,
   background: string,
-  threshold: number = 3.5,
-  log: boolean = false
+  threshold: number = 3.5
 ) => {
   const rgbForeground = convertHexToRGB(foreground);
   const rgbBackground = convertHexToRGB(background);

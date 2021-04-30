@@ -23,10 +23,6 @@ const ControlsContainer = styled.div`
 
   display: flex;
   justify-content: center;
-
-  @media (max-height: 1000px) {
-    zoom: 67%;
-  }
 `;
 
 const ControlContainer = styled.div`
