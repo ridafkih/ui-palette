@@ -12,4 +12,4 @@ ___
 2. Select your desired screen.
 3. Select your desired view type, being 3D or 2D.
 
-![GIF of app being used](https://i.imgur.com/JHI25Oj.gif)
+![GIF of app being used](https://i.imgur.com/JHI25Oj.mp4)
