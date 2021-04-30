@@ -61,7 +61,7 @@ const ScreenRender = React.forwardRef<
       {layout === "settings-screen" && colours && (
         <SettingsScreen colours={colours} ref={svgScreen}></SettingsScreen>
       )}
-      <ScreenCanvas ref={ref} width="1024" height="2048"></ScreenCanvas>
+      <ScreenCanvas ref={ref} width="1024" height="2217"></ScreenCanvas>
     </>
   );
 });

@@ -30,3 +30,7 @@ body {
 canvas {
   width: 100%;
 }
+
+.svg-render {
+  display: none;
+}

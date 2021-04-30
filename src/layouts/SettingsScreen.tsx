@@ -7,14 +7,15 @@ const SettingsScreen = React.forwardRef(
   (props: { colours: ColourPalette }, ref: any) => {
     return (
       <svg
+        className="svg-render"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         width="375"
         height="812"
         viewBox="0 0 375 812"
         fill="none"
-        display="none"
         ref={ref}
+        style={{ transform: "scaleX(1.1)" }}
       >
         <g clipPath="url(#clip0)">
           <rect width="375" height="812" fill={props.colours.main} />
