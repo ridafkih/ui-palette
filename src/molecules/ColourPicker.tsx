@@ -6,6 +6,7 @@ import ColourPalette from "../types/colourpalette.interface";
 
 const PickerContainer = styled.div`
   width: 100%;
+  max-width: 320px;
   height: 100%;
 
   display: flex;

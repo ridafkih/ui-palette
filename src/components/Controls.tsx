@@ -30,7 +30,7 @@ const ControlContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  margin: 0 16px;
+  margin: 8px 16px;
 `;
 
 function Controls(props: {
